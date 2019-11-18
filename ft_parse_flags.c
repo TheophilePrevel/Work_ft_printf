@@ -6,7 +6,7 @@
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:20:03 by tprevel           #+#    #+#             */
-/*   Updated: 2019/11/13 16:28:33 by tprevel          ###   ########.fr       */
+/*   Updated: 2019/11/18 12:56:09 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_atoi_star(const char *s, int *i, va_list args)
 	}
 	while (s[*i] >= '0' && s[*i] <= '9')
 	{
-		num = num * 10 + (s[*i] - 48);
+		num = num * 10 + (s[*i] - '0');
 		(*i)++;
 	}
 	(*i)--;
@@ -72,17 +72,17 @@ void	ft_neg_star(struct s_flgs *flags)
 
 void	ft_parse_flags(const char *s, int *i, struct s_flgs *flags, va_list ap)
 {
-	flags->minus = 0;
 	flags->zero = 0;
+	flags->dash = 0;
 	flags->dot = 0;
 	flags->precision = 0;
 	flags->width = 0;
-	while (ft_strchr("-.*", s[*i]))
+	while (ft_strchr("-.* 0123456789", s[*i]))
 	{
-		if (s[*i] == '-')
-			flags->minus = 1;
-		else if (s[*i] == '0')
+		if (s[*i] == '0')
 			flags->zero = 1;
+		else if (s[*i] == '-')
+			flags->dash = 1;
 		else if (s[*i] == '.')
 		{
 			flags->dot = 1;
