@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_managers_I.c                                    :+:      :+:    :+:   */
+/*   ft_print_char_str_mem.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 10:34:20 by tprevel           #+#    #+#             */
-/*   Updated: 2019/11/18 17:17:57 by tprevel          ###   ########.fr       */
+/*   Updated: 2019/11/20 15:01:33 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_padding(int size, char pad_car)
 {
 	while (size--)
-		write(1, pad_char, 1);
+		write(1, &pad_char, 1);
 }
 
 int		ft_print_char(char c, t_flags flags)
