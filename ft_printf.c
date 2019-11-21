@@ -6,13 +6,13 @@
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 14:52:40 by tprevel           #+#    #+#             */
-/*   Updated: 2019/11/18 15:22:17 by tprevel          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:43:40 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_ifs_forest(const char *s, int *i, va_list ap)
+int		ft_ivaie(const char *s, int *i, va_list ap)
 {
 	t_flags	flags;
 	int		out;
@@ -26,11 +26,13 @@ int		ft_ifs_forest(const char *s, int *i, va_list ap)
 	else if (s[*i] == 'p')
 		out = ft_print_mem(va_arg(ap, unsigned long), flags);
 	else if (s[*i] == 'd' || s[*i] == 'i')
-		out = ft_print_nbr(va_arg(ap, int), flags);
+		out = ft_print_nbr((long int)va_arg(ap, int), flags);
 	else if (s[*i] == 'u')
-		out = ft_print_nbr(va_arg(ap, unsigned int), flags);
-	else if (s[*i] == 'x' || s[*i] == 'X')
-		out = ft_print_hex(va_arg(ap, unsigned int), flags, s[*i]);
+		out = ft_print_nbr((long int)va_arg(ap, unsigned int), flags);
+	else if (s[*i] == 'x')
+		out = ft_print_hex(va_arg(ap, unsigned int), flags, 'a');
+	else if (s[*i] == 'X')
+		out = ft_print_hex(va_arg(ap, unsigned int), flags, 'A');
 	else
 		out = ft_print_other(s[*i], flags);
 	if (s[*i] != '\0')
@@ -50,7 +52,7 @@ int		ft_printf(const char *str, ...)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '%')
-			out += ft_ifs_forest(str, &i, ap);
+			out += ft_ivaie(str, &i, ap);
 		else
 		{
 			write(1, &str[i++], 1);

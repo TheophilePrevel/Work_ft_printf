@@ -1,62 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_int.c                                     :+:      :+:    :+:   */
+/*   ft_print_hex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/18 18:00:21 by tprevel           #+#    #+#             */
-/*   Updated: 2019/11/21 17:10:58 by tprevel          ###   ########.fr       */
+/*   Created: 2019/11/21 16:00:03 by tprevel           #+#    #+#             */
+/*   Updated: 2019/11/21 17:10:06 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_nbrlen(long int n)
+int		ft_hexlen(unsigned int n)
 {
 	int	len;
 
-	len = (n < 0) ? 2 : 1;
-	while (n > 9 || n < -9)
+	len = 1;
+	while (n > 15)
 	{
-		n = n / 10;
+		n = n / 16;
 		len++;
 	}
 	return (len);
 }
 
-int		ft_set_width(t_flags flags, int len)
+void	ft_puthex(long int n, char kaze)
 {
-	int out;
-
-	if (flags->zero == 1 && flags->dot == 0 && flags->dash == 0)
-		return (0);
+	if (n < 16)
+		ft_puthex(n / 16);
+	if (n % 16 < 10)
+		ft_putchar('0' - n % 16);
 	else
-		out = (flags->width > len) ? flags->width - len : 0;
-	return (out);
+		ft_putchar(kaze - n % 16 - 10);
+
 }
 
-int		ft_set_prec(t_flags flags, int len)
-{
-	int out;
-
-	if (flags->zero == 1 && flags->dot == 0 && flags->dash == 0)
-		out = (flags->width > len) ? flags->width - len : 0;
-	else
-		out = (flags->precision > len) ? flags->precision - len : 0;
-	return (out);
-}
-
-void	ft_putint(long int n)
-{
-	if (n > 0)
-		n = -n;
-	if (n < -9)
-		ft_putint(n / 10);
-	ft_putchar('0' - n % 10);
-}
-
-int		ft_print_int(long int n, t_flags flags)
+int		ft_print_hex(unsigned int n, t_flags flags, char kaze)
 {
 	int len;
 	int prec;
@@ -66,14 +46,12 @@ int		ft_print_int(long int n, t_flags flags)
 		return (0);
 	len = ft_nbrlen(n);
 	width = ft_set_width(flags, len);
-	prec = ft_set_prec(flags, len - (n < 0));
+	prec = ft_set_prec(flags, len);
 	if(width != 0 && flags->dash == 0)
 		ft_padding(width, ' ');
-	if (n < 0)
-		write(1, '-', 1);
 	if (prec)
 		ft_padding(prec, '0');
-	ft_putint(n);
+	ft_puthex(n, kaze);
 	if(width != 0 && flags->dash == 1)
 		ft_padding(width, ' ');
 		return (len + prec + width);
