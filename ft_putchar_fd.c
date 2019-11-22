@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 16:37:08 by tprevel           #+#    #+#             */
-/*   Updated: 2019/11/08 17:02:03 by tprevel          ###   ########.fr       */
+/*   Created: 2019/10/10 14:29:00 by tprevel           #+#    #+#             */
+/*   Updated: 2019/11/22 18:49:04 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_putchar_fd(char c, int fd)
 {
-	if (*alst == NULL)
-		*alst = new;
-	else
-		ft_lstlast(*alst)->next = new;
+	write(fd, &c, 1);
 }

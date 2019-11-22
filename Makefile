@@ -1,16 +1,21 @@
 # DIRECTORIES
 DEP_DIR	= dep
 OBJ_DIR	= obj
-LIBFT_DIR	= libft/
 DIR		= $(DEP_DIR) $(OBJ_DIR)
 
 # FILES
-NAME	= printf.a
-SRC		= 
-BONUS	= 
+NAME	= libftprintf.a
+SRC		= ft_printf.c \
+			ft_parse_flags.c \
+			ft_print_char_str_mem.c \
+			ft_print_int.c \
+			ft_print_hex.c \
+			ft_print_pt.c \
+			ft_putchar_fd.c \
+			ft_strchr.c 
+
 DEP		:= $(SRC:%.c=$(DEP_DIR)/%.d)
 OBJ		:= $(SRC:%.c=$(OBJ_DIR)/%.o)
-OBJ_B	:= $(BONUS:%.c=$(OBJ_DIR)/%.o)
 
 # COMPILATION
 CC		= gcc
@@ -22,10 +27,6 @@ $(NAME): $(OBJ)
 	@ar -rcs $@ $^
 
 all: $(NAME)
-
-bonus: $(NAME) $(OBJ_B) 
-	@echo 'Add bonus to $(NAME)'
-	@ar -rcs $(NAME) $^
 
 clean:
 	rm -rf $(DIR)

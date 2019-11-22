@@ -6,7 +6,7 @@
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 18:00:21 by tprevel           #+#    #+#             */
-/*   Updated: 2019/11/21 17:10:58 by tprevel          ###   ########.fr       */
+/*   Updated: 2019/11/22 19:34:45 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int		ft_set_width(t_flags flags, int len)
 {
 	int out;
 
-	if (flags->zero == 1 && flags->dot == 0 && flags->dash == 0)
+	if (flags.zero == 1 && flags.dot == 0 && flags.dash == 0)
 		return (0);
 	else
-		out = (flags->width > len) ? flags->width - len : 0;
+		out = (flags.width > len) ? flags.width - len : 0;
 	return (out);
 }
 
@@ -40,10 +40,10 @@ int		ft_set_prec(t_flags flags, int len)
 {
 	int out;
 
-	if (flags->zero == 1 && flags->dot == 0 && flags->dash == 0)
-		out = (flags->width > len) ? flags->width - len : 0;
+	if (flags.zero == 1 && flags.dot == 0 && flags.dash == 0)
+		out = (flags.width > len) ? flags.width - len : 0;
 	else
-		out = (flags->precision > len) ? flags->precision - len : 0;
+		out = (flags.precision > len) ? flags.precision - len : 0;
 	return (out);
 }
 
@@ -53,7 +53,7 @@ void	ft_putint(long int n)
 		n = -n;
 	if (n < -9)
 		ft_putint(n / 10);
-	ft_putchar('0' - n % 10);
+	ft_putchar_fd('0' - n % 10, 1);
 }
 
 int		ft_print_int(long int n, t_flags flags)
@@ -62,19 +62,19 @@ int		ft_print_int(long int n, t_flags flags)
 	int prec;
 	int width;
 
-	if (flags->dot == 1 && flags->precision == 0 && n == 0)
+	if (flags.dot == 1 && flags.precision == 0 && n == 0)
 		return (0);
 	len = ft_nbrlen(n);
-	width = ft_set_width(flags, len);
 	prec = ft_set_prec(flags, len - (n < 0));
-	if(width != 0 && flags->dash == 0)
+	width = ft_set_width(flags, len + prec);
+	if (width != 0 && flags.dash == 0)
 		ft_padding(width, ' ');
 	if (n < 0)
-		write(1, '-', 1);
+		write(1, "-", 1);
 	if (prec)
 		ft_padding(prec, '0');
 	ft_putint(n);
-	if(width != 0 && flags->dash == 1)
+	if (width != 0 && flags.dash == 1)
 		ft_padding(width, ' ');
-		return (len + prec + width);
+	return (len + prec + width);
 }
