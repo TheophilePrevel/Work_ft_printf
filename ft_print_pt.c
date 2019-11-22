@@ -6,7 +6,7 @@
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:44:33 by tprevel           #+#    #+#             */
-/*   Updated: 2019/11/22 19:24:10 by tprevel          ###   ########.fr       */
+/*   Updated: 2019/11/22 20:43:21 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int		ft_print_pt(unsigned long n, t_flags flag)
 		ft_padding(width, ' ');
 	if (prec)
 		ft_padding(prec, '0');
-	if (n)
-		write(1, "0x", 2);
+	write(1, "0x", 2);
 	ft_puthex(n, 'a');
 	if (width != 0 && flag.dash == 1)
 		ft_padding(width, ' ');
