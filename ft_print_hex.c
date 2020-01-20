@@ -6,7 +6,7 @@
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:00:03 by tprevel           #+#    #+#             */
-/*   Updated: 2019/11/22 19:23:41 by tprevel          ###   ########.fr       */
+/*   Updated: 2020/01/20 17:17:01 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_print_hex(unsigned int n, t_flags flags, char kaze)
 
 	if (flags.dot == 1 && flags.precision == 0 && n == 0)
 		return (0);
-	len = ft_nbrlen(n);
+	len = ft_hexlen(n);
 	width = ft_set_width(flags, len);
 	prec = ft_set_prec(flags, len);
 	if (width != 0 && flags.dash == 0)
