@@ -6,7 +6,7 @@
 /*   By: tprevel <tprevel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:00:03 by tprevel           #+#    #+#             */
-/*   Updated: 2020/01/20 17:17:01 by tprevel          ###   ########.fr       */
+/*   Updated: 2020/01/23 14:18:05 by tprevel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,19 @@ int		ft_print_hex(unsigned int n, t_flags flags, char kaze)
 	int prec;
 	int width;
 
-	if (flags.dot == 1 && flags.precision == 0 && n == 0)
+	if (flags.dot == 1 && flags.precision == 0 && n == 0 && flags.width == 0)
 		return (0);
 	len = ft_hexlen(n);
-	width = ft_set_width(flags, len);
 	prec = ft_set_prec(flags, len);
+	width = ft_set_width(flags, len + prec);
 	if (width != 0 && flags.dash == 0)
 		ft_padding(width, ' ');
 	if (prec)
 		ft_padding(prec, '0');
-	ft_puthex(n, kaze);
+	if (!(flags.dot == 1 && flags.precision == 0 && n == 0))
+		ft_puthex(n, kaze);
+	else
+		write(1, " ", 1);
 	if (width != 0 && flags.dash == 1)
 		ft_padding(width, ' ');
 	return (len + prec + width);
